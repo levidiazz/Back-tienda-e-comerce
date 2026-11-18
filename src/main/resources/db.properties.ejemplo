@@ -1,0 +1,7 @@
+db.url=jdbc:postgresql://localhost:5432/ecommerce_bd
+db.usuario=postgres
+db.contrasena=tu_contrasena
+db.pool.maximo=10
+db.pool.minimo=2
+cifrado.clave=dnz8VsLjUv/E45JcEbflYg3hZKa0e0CXC2+R5LmoCso=
+cors.origen=http://localhost:4200
