@@ -1,0 +1,5 @@
+ALTER TABLE usuarios    ALTER COLUMN telefono    TYPE VARCHAR(255);
+ALTER TABLE direcciones ALTER COLUMN calle       TYPE VARCHAR(400);
+ALTER TABLE direcciones ALTER COLUMN numero      TYPE VARCHAR(255);
+ALTER TABLE direcciones ALTER COLUMN referencias TYPE VARCHAR(600);
+ALTER TABLE pagos       ALTER COLUMN referencia  TYPE VARCHAR(255);
