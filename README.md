@@ -1,6 +1,6 @@
 # Tienda en línea · Backend
 
-API REST de la tienda hecha con **Java Servlets**, **JDBC**, **HikariCP** y **PostgreSQL**. La consume el frontend en Angular.
+API REST con **Java Servlets**, **JDBC**, **HikariCP** y **PostgreSQL**. 
 
 - Java 17 o superior
 - Apache Tomcat **10.1** (usa `jakarta.servlet`)
