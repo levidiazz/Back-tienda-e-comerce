@@ -14,7 +14,7 @@ public final class ConexionDB {
 
         config.setJdbcUrl(Configuracion.obtener("db.url"));
         config.setUsername(Configuracion.obtener("db.usuario"));
-        config.setPassword(Configuracion.obtener("db.contrasena"));
+        config.setPassword(Configuracion.obtener("db.contrasena", ""));
         config.setDriverClassName("org.postgresql.Driver");
 
         config.setPoolName("TiendaPool");
