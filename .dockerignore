@@ -1,0 +1,9 @@
+target/
+nbproject/
+nb-configuration.xml
+nbactions.xml
+.git/
+.idea/
+.vscode/
+*.iml
+src/main/resources/db.properties

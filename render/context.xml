@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+    <WatchedResource>WEB-INF/web.xml</WatchedResource>
+    <CookieProcessor className="org.apache.tomcat.util.http.Rfc6265CookieProcessor" sameSiteCookies="none"/>
+    <Valve className="org.apache.catalina.valves.RemoteIpValve"
+           internalProxies=".*"
+           remoteIpHeader="x-forwarded-for"
+           protocolHeader="x-forwarded-proto"/>
+</Context>
