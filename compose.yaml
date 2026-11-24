@@ -1,0 +1,46 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: tienda-ecommerce-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_NAME:-ecommerce_bd}
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+      TZ: ${TZ:-America/Mexico_City}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      # Ejecuta automáticamente 01_esquema.sql, 02_datos_prueba.sql y 03_cifrado.sql la primera vez
+      - ./sql:/docker-entrypoint-initdb.d:ro,z
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 10s
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: tienda-ecommerce-back
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_URL: jdbc:postgresql://db:5432/${DB_NAME:-ecommerce_bd}
+      DB_USER: ${DB_USER:-postgres}
+      DB_PASSWORD: ${DB_PASSWORD:-postgres}
+      DB_POOL_MAX: ${DB_POOL_MAX:-10}
+      DB_POOL_MIN: ${DB_POOL_MIN:-2}
+      CIFRADO_CLAVE: ${CIFRADO_CLAVE:-dnz8VsLjUv/E45JcEbflYg3hZKa0e0CXC2+R5LmoCso=}
+      CORS_ORIGEN: ${CORS_ORIGEN:-http://localhost:4200}
+      TZ: ${TZ:-America/Mexico_City}
+    ports:
+      - "${BACKEND_PORT:-8080}:8080"
+
+volumes:
+  pgdata:

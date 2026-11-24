@@ -1,0 +1,17 @@
+.git
+.gitignore
+.env
+.env.example
+.idea
+.vscode
+nbproject
+*.iml
+.DS_Store
+Thumbs.db
+README.md
+compose.yaml
+Dockerfile
+sql
+target
+# Nunca incrustar un db.properties local dentro del WAR; se inyecta al arrancar el contenedor
+src/main/resources/db.properties

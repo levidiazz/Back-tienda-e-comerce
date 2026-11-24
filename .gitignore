@@ -8,3 +8,4 @@ nbactions.xml
 .DS_Store
 Thumbs.db
 src/main/resources/db.properties
+.env
