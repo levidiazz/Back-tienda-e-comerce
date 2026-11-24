@@ -12,9 +12,9 @@ public final class ConexionDB {
     static {
         HikariConfig config = new HikariConfig();
 
-        config.setJdbcUrl(Configuracion.obtener("db.url"));
-        config.setUsername(Configuracion.obtener("db.usuario"));
-        config.setPassword(Configuracion.obtener("db.contrasena"));
+        config.setJdbcUrl(Configuracion.requerido("db.url"));
+        config.setUsername(Configuracion.requerido("db.usuario"));
+        config.setPassword(Configuracion.obtener("db.contrasena", ""));
         config.setDriverClassName("org.postgresql.Driver");
 
         config.setPoolName("TiendaPool");
