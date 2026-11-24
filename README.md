@@ -1,6 +1,6 @@
 # Tienda en línea · Backend
 
-API REST con **Java Servlets**, **JDBC**, **HikariCP** y **PostgreSQL**. 
+API REST de la tienda hecha con **Java Servlets**, **JDBC**, **HikariCP** y **PostgreSQL**. La consume el frontend en Angular.
 
 - Java 17 o superior
 - Apache Tomcat **10.1** (usa `jakarta.servlet`)
@@ -41,6 +41,31 @@ Flujo de cada petición: **filtro → servlet (valida) → DAO (SQL) → modelo 
 | Permisos | `/api/admin` solo para administrador y empleado. Cada cliente solo ve sus propios datos. |
 | Peticiones | Solo JSON (`415` si no), máximo 64 KB (`413`). |
 
+## Cómo correrlo en NetBeans
+
+1. **Base de datos.** Crea la base `ecommerce_bd` y ejecuta en orden `sql/01_esquema.sql`, `sql/02_datos_prueba.sql` y `sql/03_cifrado.sql`.
+2. **Configuración.** Copia `src/main/resources/db.properties.ejemplo` como `db.properties` y pon tu usuario, contraseña y el nombre exacto de tu base. Este archivo no se sube a GitHub.
+3. **Abrir.** *File › Open Project* y elige la carpeta del proyecto.
+4. **Servidor.** Clic derecho › *Properties › Run*: Server *Apache Tomcat 10.1* y Context Path `/tienda-ecommerce-back`.
+5. **Correr.** *Clean and Build* y luego *Run*. Al arrancar, los datos personales de prueba se cifran solos.
+6. Abre `http://localhost:8080/tienda-ecommerce-back/api/productos`.
+
+Usuarios de prueba (contraseña `Tienda2026`): `admin@tienda.com` (administrador), `laura@tienda.com` (empleado), `carlos@correo.com` y `maria@correo.com` (clientes).
+
+## Despliegue en Render
+
+Render no trae Tomcat, así que el proyecto se despliega con **Docker**: el `Dockerfile` compila el WAR con Maven y lo pone en un Tomcat 10.1 como `ROOT.war`. La API queda en `https://NOMBRE.onrender.com/api/...`.
+
+La configuración se lee primero de **variables de entorno** y, si no existen, de `db.properties`:
+
+| Variable | Valor |
+|---|---|
+| `DATABASE_URL` | *Internal Database URL* de la base de Render (se convierte sola a JDBC) |
+| `CIFRADO_CLAVE` | La misma `cifrado.clave` usada para cargar los datos |
+| `DB_POOL_MAXIMO` / `DB_POOL_MINIMO` | `5` / `1` |
+| `CORS_ORIGEN` | `http://localhost:4200` |
+
+También se pueden usar `DB_URL`, `DB_USUARIO` y `DB_CONTRASENA` por separado.
 
 ## Endpoints
 
